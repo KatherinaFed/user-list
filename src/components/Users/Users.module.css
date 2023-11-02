@@ -1,0 +1,9 @@
+.users_container {
+  text-align: left;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.user_gray_background {
+  background-color: lightgray;
+}
