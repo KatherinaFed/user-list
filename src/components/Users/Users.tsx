@@ -13,7 +13,7 @@ const Users = () => {
 
         return (
           <div className={bgColor} key={user.id}>
-            {user.name.toLocaleUpperCase()}
+            {user.name.toUpperCase()}
           </div>
         );
       })}
