@@ -15,6 +15,12 @@ export const usersApi = createApi({
           _limit: 8,
         },
       }),
+      transformResponse: (res: IUsers[]): IUsers[] => {
+        return res.map((user) => ({
+          id: user.id,
+          name: user.name,
+        }));
+      },
       providesTags: ['Users'],
     }),
   }),

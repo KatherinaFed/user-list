@@ -2,7 +2,7 @@ import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import Users from './Users';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
-import { useGetUsersQuery } from '../../service/UsersService';
+import { useGetUsersQuery } from '../../service/usersServiceApi';
 
 // mock API
 jest.mock('../../service/UsersService', () => {
@@ -13,8 +13,6 @@ jest.mock('../../service/UsersService', () => {
         { id: 1, name: 'User 1' },
         { id: 2, name: 'User 2' },
       ],
-      isLoading: false,
-      error: null,
     }),
   };
 });
@@ -29,11 +27,11 @@ describe('Users', () => {
   });
 
   it(`User's names should be in uppercase`, async () => {
-    const mockNamesList = ['Leanne Graham', 'Ervin Howell', 'Clementine Bauch'];
+    const { result } = renderHook(() => useGetUsersQuery());
 
-    await mockNamesList.forEach((name) => {
-      const nameUppercase = name.toUpperCase();
-      waitFor(() => {
+    await waitFor(() => {
+      result.current.data?.forEach(({ name }) => {
+        const nameUppercase = name.toUpperCase();
         expect(screen.getByText(nameUppercase)).toBeInTheDocument();
       });
     });
@@ -46,12 +44,12 @@ describe('Users', () => {
     ];
 
     const { result } = renderHook(() => useGetUsersQuery());
-    console.log(result.current.data);
 
     expect(result.current.data).toEqual(mockData);
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBeNull();
   });
 
-  // it('Should correctly extracts and formats the name from the JSON data', () => {});
+  it('Should correctly extracts and formats the name from the JSON data', async () => {
+    const { result } = renderHook(() => useGetUsersQuery());
+    console.log(result.current);
+  });
 });

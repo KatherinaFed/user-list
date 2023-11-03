@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './Users.module.css';
 
-import { useGetUsersQuery } from '../../service/UsersService';
+import { useGetUsersQuery } from '../../service/usersServiceApi';
 
 const Users = () => {
   const { data } = useGetUsersQuery();
