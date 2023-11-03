@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { usersApi } from '../service/UsersService';
-import { setupListeners } from '@reduxjs/toolkit/query';
 
 const rootReducer = combineReducers({
   [usersApi.reducerPath]: usersApi.reducer,

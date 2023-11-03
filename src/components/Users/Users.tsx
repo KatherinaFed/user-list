@@ -4,7 +4,7 @@ import css from './Users.module.css';
 import { useGetUsersQuery } from '../../service/UsersService';
 
 const Users = () => {
-  const { data } = useGetUsersQuery(8);
+  const { data } = useGetUsersQuery();
 
   return (
     <div className={css.users_container}>

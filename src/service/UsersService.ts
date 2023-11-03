@@ -8,11 +8,11 @@ export const usersApi = createApi({
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
-    getUsers: builder.query<IUsers[], number>({
-      query: (limit) => ({
+    getUsers: builder.query<IUsers[], void>({
+      query: () => ({
         url: '/users',
         params: {
-          _limit: limit,
+          _limit: 8,
         },
       }),
       providesTags: ['Users'],
