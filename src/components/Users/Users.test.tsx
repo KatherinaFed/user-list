@@ -1,18 +1,17 @@
-import { render, renderHook, screen, waitFor } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
 import Users from './Users';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
 import { useGetUsersQuery } from '../../service/usersServiceApi';
+import { mockData, mockJsonSchema } from '../../__mocks__/mockData';
+import schema from '../../config/dataSchema.json';
 
 // mock API
 jest.mock('../../service/usersServiceApi', () => {
   return {
     ...jest.requireActual('../../service/usersServiceApi'),
     useGetUsersQuery: () => ({
-      data: [
-        { id: 1, name: 'User 1' },
-        { id: 2, name: 'User 2' },
-      ],
+      data: mockData,
     }),
   };
 });
@@ -26,7 +25,7 @@ describe('Users', () => {
     );
   });
 
-  it(`User's names should be in uppercase`, () => {
+  it(`User names should be in uppercase`, () => {
     const userNames = screen.getAllByText(/user \d/i);
 
     userNames.forEach((user) => {
@@ -36,16 +35,13 @@ describe('Users', () => {
   });
 
   it('API should return the correct data', () => {
-    const mockData = [
-      { id: 1, name: 'User 1' },
-      { id: 2, name: 'User 2' },
-    ];
+    const expectedData = [{ name: 'User 1' }, { name: 'User 2' }];
 
     const { result } = renderHook(() => useGetUsersQuery());
     const { data } = result.current;
 
     data?.forEach(({ name }, index) => {
-      expect(name).toEqual(mockData[index].name);
+      expect(name).toEqual(expectedData[index].name);
     });
   });
 
@@ -60,6 +56,7 @@ describe('Users', () => {
       return user.name.toUpperCase();
     });
 
+    expect({ id: 1, name: 'John Doe' }).toMatchSchema(mockJsonSchema);
     expect(hasNameKey).toEqual([true, true]);
     expect(extractedAndFormattedNames).toEqual(['USER 1', 'USER 2']);
   });
