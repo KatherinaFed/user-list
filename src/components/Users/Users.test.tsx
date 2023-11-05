@@ -5,9 +5,9 @@ import store from '../../store/store';
 import { useGetUsersQuery } from '../../service/usersServiceApi';
 
 // mock API
-jest.mock('../../service/UsersService', () => {
+jest.mock('../../service/usersServiceApi', () => {
   return {
-    ...jest.requireActual('../../service/UsersService'),
+    ...jest.requireActual('../../service/usersServiceApi'),
     useGetUsersQuery: () => ({
       data: [
         { id: 1, name: 'User 1' },
@@ -26,14 +26,12 @@ describe('Users', () => {
     );
   });
 
-  it(`User's names should be in uppercase`, async () => {
-    const { result } = renderHook(() => useGetUsersQuery());
+  it(`User's names should be in uppercase`, () => {
+    const userNames = screen.getAllByText(/user \d/i);
 
-    await waitFor(() => {
-      result.current.data?.forEach(({ name }) => {
-        const nameUppercase = name.toUpperCase();
-        expect(screen.getByText(nameUppercase)).toBeInTheDocument();
-      });
+    userNames.forEach((user) => {
+      expect(user.textContent).toMatch(/USER \d/);
+      expect(user).toBeInTheDocument();
     });
   });
 
@@ -44,12 +42,27 @@ describe('Users', () => {
     ];
 
     const { result } = renderHook(() => useGetUsersQuery());
+    const { data } = result.current;
 
-    expect(result.current.data).toEqual(mockData);
+    expect(data).toEqual(mockData);
+
+    data?.forEach(({ name }, index) => {
+      expect(name).toEqual(mockData[index].name);
+    });
   });
 
-  it('Should correctly extracts and formats the name from the JSON data', async () => {
+  it('Should correctly extracts and formats the name from the JSON data', () => {
     const { result } = renderHook(() => useGetUsersQuery());
-    console.log(result.current);
+    const { data } = result.current;
+
+    const hasNameKey = data?.map((user) => {
+      return user.hasOwnProperty('name');
+    });
+    const extractedAndFormattedNames = data?.map((user) => {
+      return user.name.toUpperCase();
+    });
+
+    expect(hasNameKey).toEqual([true, true]);
+    expect(extractedAndFormattedNames).toEqual(['USER 1', 'USER 2']);
   });
 });
