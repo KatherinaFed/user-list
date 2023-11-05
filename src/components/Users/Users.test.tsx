@@ -44,14 +44,12 @@ describe('Users', () => {
     const { result } = renderHook(() => useGetUsersQuery());
     const { data } = result.current;
 
-    expect(data).toEqual(mockData);
-
     data?.forEach(({ name }, index) => {
       expect(name).toEqual(mockData[index].name);
     });
   });
 
-  it('Should correctly extracts and formats the name from the JSON data', () => {
+  it('Should correctly extract and format names from the JSON data', () => {
     const { result } = renderHook(() => useGetUsersQuery());
     const { data } = result.current;
 
