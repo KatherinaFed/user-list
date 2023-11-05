@@ -2,9 +2,18 @@ import React from 'react';
 import css from './Users.module.css';
 
 import { useGetUsersQuery } from '../../service/usersServiceApi';
+import { isFetchBaseQueryErrorType } from '../../types/type';
 
 const Users = () => {
-  const { data } = useGetUsersQuery();
+  const { data, isLoading, isFetching, isError, error } = useGetUsersQuery();
+
+  if (isError && isFetchBaseQueryErrorType(error)) {
+    return <h3>{error.status}</h3>;
+  }
+
+  if (isLoading && isFetching) {
+    return <h3>Loading...</h3>;
+  }
 
   return (
     <div className={css.users_container}>

@@ -1,10 +1,9 @@
-import { render, renderHook, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Users from './Users';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
 import { useGetUsersQuery } from '../../service/usersServiceApi';
 import { mockData, mockJsonSchema } from '../../__mocks__/mockData';
-import schema from '../../config/dataSchema.json';
 
 // mock API
 jest.mock('../../service/usersServiceApi', () => {
@@ -36,18 +35,19 @@ describe('Users', () => {
 
   it('API should return the correct data', () => {
     const expectedData = [{ name: 'User 1' }, { name: 'User 2' }];
-
-    const { result } = renderHook(() => useGetUsersQuery());
-    const { data } = result.current;
+    const { data } = useGetUsersQuery();
 
     data?.forEach(({ name }, index) => {
       expect(name).toEqual(expectedData[index].name);
     });
   });
 
+  it('API should return en error', () => {
+    // const { data, isError } = useGetUsersQuery();
+  });
+
   it('Should correctly extract and format names from the JSON data', () => {
-    const { result } = renderHook(() => useGetUsersQuery());
-    const { data } = result.current;
+    const { data } = useGetUsersQuery();
 
     const hasNameKey = data?.map((user) => {
       return user.hasOwnProperty('name');
