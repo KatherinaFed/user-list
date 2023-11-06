@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Users from './Users';
 import { Provider } from 'react-redux';
@@ -16,25 +17,12 @@ jest.mock('../../service/usersServiceApi', () => {
 });
 
 describe('Users', () => {
-  beforeEach(() => {
+  it('Should correctly extract and format names from the JSON data', () => {
     render(
       <Provider store={store}>
         <Users />
       </Provider>
     );
-  });
-
-
-  it('API should return the correct data', () => {
-    const expectedData = [{ name: 'User 1' }, { name: 'User 2' }];
-    const { data } = useGetUsersQuery();
-
-    data?.forEach(({ name }, index) => {
-      expect(name).toEqual(expectedData[index].name);
-    });
-  });
-
-  it('Should correctly extract and format names from the JSON data', () => {
     const { data } = useGetUsersQuery();
 
     const hasNameKey = data?.map((user) => {

@@ -4,5 +4,8 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import { matchers } from 'jest-json-schema';
+import fetchMock from 'jest-fetch-mock';
+
+fetchMock.enableMocks();
 
 expect.extend(matchers);
