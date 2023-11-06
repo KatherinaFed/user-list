@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IUsers } from '../types/type';
+import { IUser } from '../types/type';
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -8,20 +8,13 @@ export const usersApi = createApi({
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
-    getUsers: builder.query<IUsers[], void>({
+    getUsers: builder.query<IUser[], void>({
       query: () => ({
         url: '/users',
         params: {
           _limit: 8,
         },
       }),
-      transformResponse: (res: IUsers[], meta): IUsers[] => {
-        return res.map((user) => ({
-          id: user.id,
-          name: user.name,
-        }));
-      },
-      
       providesTags: ['Users'],
     }),
   }),

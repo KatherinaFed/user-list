@@ -1,6 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-export interface IUsers {
+export interface IUser {
   id: number;
   name: string;
   username?: string;
@@ -23,7 +23,3 @@ export interface IUsers {
     bs: string;
   };
 }
-
-export const isFetchBaseQueryErrorType = (
-  error: any
-): error is FetchBaseQueryError => 'status' in error;

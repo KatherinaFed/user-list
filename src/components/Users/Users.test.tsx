@@ -24,14 +24,6 @@ describe('Users', () => {
     );
   });
 
-  it(`User names should be in uppercase`, () => {
-    const userNames = screen.getAllByText(/user \d/i);
-
-    userNames.forEach((user) => {
-      expect(user.textContent).toMatch(/USER \d/);
-      expect(user).toBeInTheDocument();
-    });
-  });
 
   it('API should return the correct data', () => {
     const expectedData = [{ name: 'User 1' }, { name: 'User 2' }];
@@ -57,15 +49,5 @@ describe('Users', () => {
     });
     expect(hasNameKey).toEqual([true, true]);
     expect(extractedAndFormattedNames).toEqual(['USER 1', 'USER 2']);
-  });
-
-  it('Should detect and report invalid JSON data', () => {
-    const { data } = useGetUsersQuery();
-
-    data?.forEach((user) => {
-      const expectedJsonObject = { id: user.id, fullname: user.name };
-
-      expect(expectedJsonObject).not.toMatchSchema(mockJsonSchema);
-    });
   });
 });

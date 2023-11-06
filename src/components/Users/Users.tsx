@@ -2,30 +2,30 @@ import React from 'react';
 import css from './Users.module.css';
 
 import { useGetUsersQuery } from '../../service/usersServiceApi';
-import { isFetchBaseQueryErrorType } from '../../types/type';
+import User from '../User/User';
 
 const Users = () => {
   const { data, isLoading, isFetching, isError, error } = useGetUsersQuery();
 
+  // console.log(data)
+
   if (isLoading && isFetching) {
-    return <h3>Loading...</h3>;
+    return <h1>Loading...</h1>;
   }
-  
-  if (isError && isFetchBaseQueryErrorType(error)) {
-    return <h3>{error.status}</h3>;
+
+  if (isError) {
+    return <h1>Something went wrong...</h1>
   }
 
   return (
     <div className={css.users_container}>
-      {data?.map((user) => {
-        const bgColor = user.id % 2 === 0 ? css.user_gray_background : '';
-
-        return (
-          <div className={bgColor} key={user.id}>
-            {user.name.toUpperCase()}
-          </div>
-        );
-      })}
+      <ul>
+        {data?.map((user) => {
+          return (
+            <User {...user} />
+          );
+        })}
+      </ul>
     </div>
   );
 };

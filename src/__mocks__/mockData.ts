@@ -1,6 +1,6 @@
-import { IUsers } from '../types/type';
+import { IUser } from '../types/type';
 
-export const mockData: IUsers[] = [
+export const mockData: IUser[] = [
   { id: 1, name: 'User 1' },
   { id: 2, name: 'User 2' },
 ];
