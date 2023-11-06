@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
-import { render, renderHook, screen, waitFor } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import fetchMock from 'jest-fetch-mock';
-import Users from '../components/Users/Users';
 import store from '../store/store';
 import { mockData } from '../__mocks__/mockData';
 import { useGetUsersQuery } from './usersServiceApi';
