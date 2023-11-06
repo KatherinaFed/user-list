@@ -1,5 +1,3 @@
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-
 export interface IUser {
   id: number;
   name: string;

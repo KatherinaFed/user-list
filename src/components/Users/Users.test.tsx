@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Users from './Users';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
@@ -21,12 +21,12 @@ describe('Users', () => {
     render(
       <Provider store={store}>
         <Users />
-      </Provider>
+      </Provider>,
     );
     const { data } = useGetUsersQuery();
 
     const hasNameKey = data?.map((user) => {
-      return user.hasOwnProperty('name');
+      return Object.prototype.hasOwnProperty.call(user, 'name');
     });
     const extractedAndFormattedNames = data?.map((user) => {
       return user.name.toUpperCase();

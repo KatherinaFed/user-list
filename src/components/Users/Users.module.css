@@ -1,7 +1,7 @@
 .users_container {
-  text-align: left;
   font-size: 40px;
   font-weight: 600;
+  padding: 10px;
 }
 
 ul {
