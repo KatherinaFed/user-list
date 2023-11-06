@@ -59,7 +59,7 @@ describe('Users', () => {
     expect(extractedAndFormattedNames).toEqual(['USER 1', 'USER 2']);
   });
 
-  it('Should show an invalidate JSON schema error', () => {
+  it('Should detect and report invalid JSON data', () => {
     const { data } = useGetUsersQuery();
 
     data?.forEach((user) => {
