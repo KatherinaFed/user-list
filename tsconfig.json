@@ -16,5 +16,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/components/Users/Users.test.tsx"]
+  "include": [
+    "src",
+    "src/components/Users/Users.test.tsx",
+    "src/components/User/User.test.tsx",
+    "src/service/usersServiceApi.test.tsx"
+, "jest.config.js"  ]
 }

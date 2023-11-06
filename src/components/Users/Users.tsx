@@ -5,9 +5,7 @@ import { useGetUsersQuery } from '../../service/usersServiceApi';
 import User from '../User/User';
 
 const Users = () => {
-  const { data, isLoading, isFetching, isError, error } = useGetUsersQuery();
-
-  // console.log(data)
+  const { data, isLoading, isFetching, isError } = useGetUsersQuery();
 
   if (isLoading && isFetching) {
     return <h1>Loading...</h1>;
