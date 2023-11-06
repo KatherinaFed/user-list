@@ -7,12 +7,12 @@ import { isFetchBaseQueryErrorType } from '../../types/type';
 const Users = () => {
   const { data, isLoading, isFetching, isError, error } = useGetUsersQuery();
 
-  if (isError && isFetchBaseQueryErrorType(error)) {
-    return <h3>{error.status}</h3>;
-  }
-
   if (isLoading && isFetching) {
     return <h3>Loading...</h3>;
+  }
+  
+  if (isError && isFetchBaseQueryErrorType(error)) {
+    return <h3>{error.status}</h3>;
   }
 
   return (

@@ -42,10 +42,6 @@ describe('Users', () => {
     });
   });
 
-  it('API should return en error', () => {
-    // const { data, isError } = useGetUsersQuery();
-  });
-
   it('Should correctly extract and format names from the JSON data', () => {
     const { data } = useGetUsersQuery();
 
@@ -56,8 +52,20 @@ describe('Users', () => {
       return user.name.toUpperCase();
     });
 
-    expect({ id: 1, name: 'John Doe' }).toMatchSchema(mockJsonSchema);
+    data?.forEach((user) => {
+      expect({ id: user.id, name: user.name }).toMatchSchema(mockJsonSchema);
+    });
     expect(hasNameKey).toEqual([true, true]);
     expect(extractedAndFormattedNames).toEqual(['USER 1', 'USER 2']);
+  });
+
+  it('Should show an invalidate JSON schema error', () => {
+    const { data } = useGetUsersQuery();
+
+    data?.forEach((user) => {
+      const expectedJsonObject = { id: user.id, fullname: user.name };
+
+      expect(expectedJsonObject).not.toMatchSchema(mockJsonSchema);
+    });
   });
 });
