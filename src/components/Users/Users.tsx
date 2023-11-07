@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './Users.module.css';
-import _ from 'lodash';
 
 import { useGetUsersQuery } from '../../service/usersServiceApi';
 import User from '../User/User';
@@ -20,7 +19,11 @@ const Users = () => {
     <div className={css.users_container}>
       <ul>
         {data?.map((user) => {
-          return <User key={_.uniqueId()} id={user.id} name={user.name} />;
+          return (
+            <li key={user.id} className={css.user_item}>
+              <User id={user.id} name={user.name} />
+            </li>
+          );
         })}
       </ul>
     </div>

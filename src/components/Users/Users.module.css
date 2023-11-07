@@ -9,3 +9,7 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.user_item:nth-child(even) {
+  background-color: lightgray;
+}
